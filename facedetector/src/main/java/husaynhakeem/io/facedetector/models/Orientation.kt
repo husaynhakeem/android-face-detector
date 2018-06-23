@@ -1,4 +1,4 @@
-package husaynhakeem.io.facedetector
+package husaynhakeem.io.facedetector.models
 
 
 enum class Orientation {

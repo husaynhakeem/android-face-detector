@@ -7,6 +7,8 @@ import android.graphics.Rect
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
+import husaynhakeem.io.facedetector.models.FaceBounds
+import husaynhakeem.io.facedetector.models.Orientation
 
 
 class FaceBoundsOverlay @JvmOverloads constructor(

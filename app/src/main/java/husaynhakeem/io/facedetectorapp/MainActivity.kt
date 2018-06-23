@@ -2,9 +2,9 @@ package husaynhakeem.io.facedetectorapp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import husaynhakeem.io.facedetector.CameraWrapper
-import husaynhakeem.io.facedetector.Frame
-import husaynhakeem.io.facedetector.Size
+import husaynhakeem.io.facedetector.camera.CameraWrapper
+import husaynhakeem.io.facedetector.models.Frame
+import husaynhakeem.io.facedetector.models.Size
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

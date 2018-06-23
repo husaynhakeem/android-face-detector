@@ -1,4 +1,8 @@
-package husaynhakeem.io.facedetector
+package husaynhakeem.io.facedetector.camera
+
+import husaynhakeem.io.facedetector.FaceBoundsOverlay
+import husaynhakeem.io.facedetector.FaceDetector
+import husaynhakeem.io.facedetector.models.Frame
 
 
 abstract class CameraWrapper(facesSurface: FaceBoundsOverlay) {

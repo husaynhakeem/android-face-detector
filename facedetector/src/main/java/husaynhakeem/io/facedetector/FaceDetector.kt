@@ -8,10 +8,13 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
 import com.google.firebase.ml.vision.face.FirebaseVisionFace
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
+import husaynhakeem.io.facedetector.camera.CameraOrientationHandler
+import husaynhakeem.io.facedetector.models.FaceBounds
+import husaynhakeem.io.facedetector.models.Frame
 
 class FaceDetector(private val faceBoundsOverlay: FaceBoundsOverlay) {
 
-    private val faceBoundsOverlayOrientationHandler = FaceBoundsOverlayOrientationHandler(faceBoundsOverlay)
+    private val cameraOrientationHandler = CameraOrientationHandler(faceBoundsOverlay)
 
     private val faceDetectorOptions: FirebaseVisionFaceDetectorOptions by lazy {
         FirebaseVisionFaceDetectorOptions.Builder()
@@ -28,7 +31,7 @@ class FaceDetector(private val faceBoundsOverlay: FaceBoundsOverlay) {
     }
 
     fun process(frame: Frame) {
-        faceBoundsOverlayOrientationHandler.orientation = frame.rotation
+        cameraOrientationHandler.orientation = frame.rotation
         faceDetector.detectInImage(convertFrameToImage(frame))
                 .addOnSuccessListener {
                     faceBoundsOverlay.updateFaces(convertToListOfFaceBounds(it))

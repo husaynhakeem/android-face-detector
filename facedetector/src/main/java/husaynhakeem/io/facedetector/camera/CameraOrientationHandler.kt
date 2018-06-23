@@ -1,9 +1,11 @@
-package husaynhakeem.io.facedetector
+package husaynhakeem.io.facedetector.camera
 
+import husaynhakeem.io.facedetector.FaceBoundsOverlay
+import husaynhakeem.io.facedetector.models.Orientation
 import kotlin.properties.Delegates
 
 
-class FaceBoundsOverlayOrientationHandler(private val faceBoundsOverlay: FaceBoundsOverlay) {
+class CameraOrientationHandler(private val faceBoundsOverlay: FaceBoundsOverlay) {
 
     private val min: Float by lazy {
         Math.min(faceBoundsOverlay.width, faceBoundsOverlay.height).toFloat()

@@ -1,7 +1,7 @@
 package husaynhakeem.io.facedetectorapp
 
 import com.otaliastudios.cameraview.CameraView
-import husaynhakeem.io.facedetector.CameraWrapper
+import husaynhakeem.io.facedetector.camera.CameraWrapper
 import husaynhakeem.io.facedetector.FaceBoundsOverlay
 
 
