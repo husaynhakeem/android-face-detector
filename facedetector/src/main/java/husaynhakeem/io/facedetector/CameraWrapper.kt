@@ -1,7 +1,5 @@
-package husaynhakeem.io.facedetector.camera
+package husaynhakeem.io.facedetector
 
-import husaynhakeem.io.facedetector.FaceBoundsOverlay
-import husaynhakeem.io.facedetector.FaceDetector
 import husaynhakeem.io.facedetector.models.Frame
 
 
