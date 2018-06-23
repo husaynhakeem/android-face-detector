@@ -2,43 +2,49 @@ package husaynhakeem.io.facedetectorapp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.otaliastudios.cameraview.Frame
-import husaynhakeem.io.facedetector.FaceDetector
+import husaynhakeem.io.facedetector.CameraWrapper
+import husaynhakeem.io.facedetector.Frame
 import husaynhakeem.io.facedetector.Size
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val cameraWrapper: CameraWrapper by lazy {
+        OtaliaStudiosCameraWrapper(otaliaStudiosCameraView, facesSurface)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val facesProcessor = FaceDetector(facesSurface)
-        cameraView.addFrameProcessor {
-            facesProcessor.process(it.toFaceDetectionFrame())
+        setupOtaliaStuiosCamera()
+    }
+
+    private fun setupOtaliaStuiosCamera() {
+        otaliaStudiosCameraView.addFrameProcessor {
+            cameraWrapper.processFrame(Frame(
+                    data = it.data,
+                    rotation = it.rotation,
+                    size = Size(it.size.width, it.size.height),
+                    format = it.format))
         }
-        revertCameraButton.setOnClickListener { cameraView.toggleFacing() }
+
+        revertCameraButton.setOnClickListener {
+            otaliaStudiosCameraView.toggleFacing()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        cameraView.start()
+        cameraWrapper.start()
     }
 
     override fun onPause() {
         super.onPause()
-        cameraView.stop()
+        cameraWrapper.stop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        cameraView.destroy()
-    }
-
-    private fun Frame.toFaceDetectionFrame(): husaynhakeem.io.facedetector.Frame {
-        return husaynhakeem.io.facedetector.Frame(
-                data = data,
-                rotation = rotation,
-                size = Size(size.width, size.height),
-                format = format)
+        cameraWrapper.destroy()
     }
 }
