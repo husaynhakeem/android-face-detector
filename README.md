@@ -1,5 +1,7 @@
 # Android face detector
 
+![alt text](https://github.com/husaynhakeem/android-face-detector/blob/master/app/src/main/res/drawable/ic_launcher.png)
+
 Face detector is a face detection Android library which can be easily plugged into any camera API (given it provides a way to process its frames).
 
 Face detector is built on top of Firebase ML Kit's face detection API.
