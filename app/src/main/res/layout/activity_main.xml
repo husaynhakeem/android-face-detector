@@ -6,13 +6,13 @@
     tools:context=".MainActivity">
 
     <com.otaliastudios.cameraview.CameraView
-        android:id="@+id/otaliaStudiosCameraView"
+        android:id="@+id/cameraView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:keepScreenOn="true" />
 
     <husaynhakeem.io.facedetector.FaceBoundsOverlay
-        android:id="@+id/facesSurface"
+        android:id="@+id/facesBoundsOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

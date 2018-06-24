@@ -2,15 +2,15 @@ package husaynhakeem.io.facedetectorapp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import husaynhakeem.io.facedetector.CameraWrapper
+import husaynhakeem.io.facedetector.FaceDetector
 import husaynhakeem.io.facedetector.models.Frame
 import husaynhakeem.io.facedetector.models.Size
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val cameraWrapper: CameraWrapper by lazy {
-        OtaliaStudiosCameraWrapper(otaliaStudiosCameraView, facesSurface)
+    private val faceDetector: FaceDetector by lazy {
+        FaceDetector(facesBoundsOverlay)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupOtaliaStuiosCamera() {
-        otaliaStudiosCameraView.addFrameProcessor {
-            cameraWrapper.processFrame(Frame(
+        cameraView.addFrameProcessor {
+            faceDetector.process(Frame(
                     data = it.data,
                     rotation = it.rotation,
                     size = Size(it.size.width, it.size.height),
@@ -29,22 +29,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         revertCameraButton.setOnClickListener {
-            otaliaStudiosCameraView.toggleFacing()
+            cameraView.toggleFacing()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        cameraWrapper.start()
+        cameraView.start()
     }
 
     override fun onPause() {
         super.onPause()
-        cameraWrapper.stop()
+        cameraView.stop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        cameraWrapper.destroy()
+        cameraView.destroy()
     }
 }

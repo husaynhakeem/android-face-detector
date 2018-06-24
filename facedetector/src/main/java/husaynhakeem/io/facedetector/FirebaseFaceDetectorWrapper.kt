@@ -8,7 +8,7 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 
 
-class FirebaseFaceDetectorWrapper {
+internal class FirebaseFaceDetectorWrapper {
 
     private val faceDetectorOptions: FirebaseVisionFaceDetectorOptions by lazy {
         FirebaseVisionFaceDetectorOptions.Builder()

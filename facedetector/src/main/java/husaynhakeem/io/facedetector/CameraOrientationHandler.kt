@@ -4,7 +4,7 @@ import husaynhakeem.io.facedetector.models.Orientation
 import husaynhakeem.io.facedetector.models.convertToOrientation
 
 
-class CameraOrientationHandler {
+internal class CameraOrientationHandler {
 
     private var previousMin: Float = -1f
     private var previousMax: Float = -1f
