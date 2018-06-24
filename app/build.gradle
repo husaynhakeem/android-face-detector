@@ -23,13 +23,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation project(':facedetector')
-
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
 
     // Camera
     implementation "com.otaliastudios:cameraview:1.5.1"
+
+    // Android face detector
+    implementation 'com.github.husaynhakeem:android-face-detector:v1.0-beta'
 }
 
 apply plugin: 'com.google.gms.google-services'
