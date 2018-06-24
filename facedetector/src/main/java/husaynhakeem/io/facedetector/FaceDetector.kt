@@ -19,8 +19,8 @@ class FaceDetector(private val faceBoundsOverlay: FaceBoundsOverlay) {
 
     private fun updateOrientation(frame: Frame) {
         cameraOrientationHandler.updateOrientation(
-                overlayWidth = faceBoundsOverlay.width,
-                overlayHeight = faceBoundsOverlay.height,
+                overlayWidth = frame.size.width,
+                overlayHeight = frame.size.height,
                 rotation = frame.rotation,
                 callback = { newWidth, newHeight, newOrientation ->
                     faceBoundsOverlay.cameraPreviewWidth = newWidth
