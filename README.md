@@ -7,6 +7,9 @@ Face detector is a face detection Android library which can be easily plugged in
 Face detector is built on top of Firebase ML Kit's face detection API.
 
 
+## Related article
+
+
 ## Usage
 
 Three easy steps:
@@ -42,7 +45,8 @@ cameraView.addFrameProcessor {
             data = it.data,
             rotation = it.rotation,
             size = Size(it.size.width, it.size.height),
-            format = it.format))
+            format = it.format,
+            isCameraFacingBack = cameraView.facing))
 }
 ```
 
@@ -61,11 +65,8 @@ allprojects {
 ```
 2. Add the dependency
 ```groovy
-implementation 'com.github.husaynhakeem:android-face-detector:v1.0-beta'
+implementation 'com.github.husaynhakeem:android-face-detector:v1.0'
 ```
-
-
-## Related article
 
 
 ## Demo
