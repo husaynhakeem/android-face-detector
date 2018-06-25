@@ -1,4 +1,6 @@
 # Face detector
+[![](https://jitpack.io/v/husaynhakeem/android-face-detector.svg)](https://jitpack.io/#husaynhakeem/android-face-detector)
+
 
 ![alt text](https://github.com/husaynhakeem/android-face-detector/blob/master/app/src/main/res/drawable/ic_launcher.png)
 
