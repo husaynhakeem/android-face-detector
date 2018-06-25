@@ -1,4 +1,4 @@
-# Android face detector
+# Face detector
 
 ![alt text](https://github.com/husaynhakeem/android-face-detector/blob/master/app/src/main/res/drawable/ic_launcher.png)
 
