@@ -8,7 +8,7 @@ enum class Orientation {
     ANGLE_270
 }
 
-fun Int.convertToOrientation() = when (this) {
+internal fun Int.convertToOrientation() = when (this) {
     0 -> Orientation.ANGLE_0
     90 -> Orientation.ANGLE_90
     180 -> Orientation.ANGLE_180

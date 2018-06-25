@@ -8,9 +8,16 @@ import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import husaynhakeem.io.facedetector.models.FaceBounds
+import husaynhakeem.io.facedetector.models.Facing
 import husaynhakeem.io.facedetector.models.Orientation
 
 
+/**
+ * A view that renders the results of a face detection process. It contains a list of faces
+ * bounds which it draws using a set of attributes provided by the camera: Its width, height,
+ * orientation and facing. These attributes impact how the face bounds are drawn, especially
+ * the scaling factor between this view and the camera view, and the mirroring of coordinates.
+ */
 class FaceBoundsOverlay @JvmOverloads constructor(
         ctx: Context,
         attrs: AttributeSet? = null,
@@ -25,6 +32,7 @@ class FaceBoundsOverlay @JvmOverloads constructor(
     var cameraPreviewWidth: Float = 0f
     var cameraPreviewHeight: Float = 0f
     var cameraOrientation: Orientation = Orientation.ANGLE_270
+    var cameraFacing: Facing = Facing.BACK
 
     init {
         anchorPaint.color = ContextCompat.getColor(context, android.R.color.holo_blue_dark)
@@ -37,6 +45,9 @@ class FaceBoundsOverlay @JvmOverloads constructor(
         boundsPaint.strokeWidth = 4f
     }
 
+    /**
+     * Repopulates the face bounds list, and calls for a redraw of the view.
+     */
     fun updateFaces(bounds: List<FaceBounds>) {
         facesBounds.clear()
         facesBounds.addAll(bounds)
@@ -54,16 +65,28 @@ class FaceBoundsOverlay @JvmOverloads constructor(
         }
     }
 
-    private fun computeFaceBoundsCenterX(viewWidth: Float, scaledCenterX: Float) = when (cameraOrientation) {
-        Orientation.ANGLE_270 -> viewWidth - scaledCenterX
-        Orientation.ANGLE_90 -> scaledCenterX
-        else -> 100f
+    /**
+     * Calculates the center of the face bounds's X coordinate depending on the camera's facing
+     * and orientation. A change in the facing results in mirroring the coordinate.
+     */
+    private fun computeFaceBoundsCenterX(viewWidth: Float, scaledCenterX: Float) = when {
+        cameraFacing == Facing.FRONT && cameraOrientation == Orientation.ANGLE_270 -> viewWidth - scaledCenterX
+        cameraFacing == Facing.FRONT && cameraOrientation == Orientation.ANGLE_90 -> scaledCenterX
+        cameraFacing == Facing.BACK && cameraOrientation == Orientation.ANGLE_270 -> viewWidth - scaledCenterX
+        cameraFacing == Facing.BACK && cameraOrientation == Orientation.ANGLE_90 -> scaledCenterX
+        else -> scaledCenterX
     }
 
-    private fun computeFaceBoundsCenterY(viewHeight: Float, scaledCenterY: Float) = when (cameraOrientation) {
-        Orientation.ANGLE_270 -> scaledCenterY
-        Orientation.ANGLE_90 -> viewHeight - scaledCenterY
-        else -> 100f
+    /**
+     * Calculates the center of the face bounds's Y coordinate depending on the camera's facing
+     * and orientation. A change in the facing results in mirroring the coordinate.
+     */
+    private fun computeFaceBoundsCenterY(viewHeight: Float, scaledCenterY: Float) = when {
+        cameraFacing == Facing.FRONT && cameraOrientation == Orientation.ANGLE_270 -> scaledCenterY
+        cameraFacing == Facing.FRONT && cameraOrientation == Orientation.ANGLE_90 -> viewHeight - scaledCenterY
+        cameraFacing == Facing.BACK && cameraOrientation == Orientation.ANGLE_270 -> viewHeight - scaledCenterY
+        cameraFacing == Facing.BACK && cameraOrientation == Orientation.ANGLE_90 -> scaledCenterY
+        else -> scaledCenterY
     }
 
     /**

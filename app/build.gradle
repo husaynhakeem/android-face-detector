@@ -30,7 +30,7 @@ dependencies {
     implementation "com.otaliastudios:cameraview:1.5.1"
 
     // Android face detector
-    implementation 'com.github.husaynhakeem:android-face-detector:v1.0-beta'
+    implementation 'com.github.husaynhakeem:android-face-detector:v1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

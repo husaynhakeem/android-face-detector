@@ -2,6 +2,7 @@ package husaynhakeem.io.facedetectorapp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.otaliastudios.cameraview.Facing
 import husaynhakeem.io.facedetector.FaceDetector
 import husaynhakeem.io.facedetector.models.Frame
 import husaynhakeem.io.facedetector.models.Size
@@ -16,16 +17,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupOtaliaStuiosCamera()
+        setupCamera()
     }
 
-    private fun setupOtaliaStuiosCamera() {
+    private fun setupCamera() {
         cameraView.addFrameProcessor {
             faceDetector.process(Frame(
                     data = it.data,
                     rotation = it.rotation,
                     size = Size(it.size.width, it.size.height),
-                    format = it.format))
+                    format = it.format,
+                    isCameraFacingBack = cameraView.facing == Facing.BACK))
         }
 
         revertCameraButton.setOnClickListener {

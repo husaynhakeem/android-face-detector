@@ -9,23 +9,25 @@ import husaynhakeem.io.facedetector.models.Frame
 
 class FaceDetector(private val faceBoundsOverlay: FaceBoundsOverlay) {
 
-    private val cameraOrientationHandler = CameraOrientationHandler()
+    private val faceBoundsOverlayHandler = FaceBoundsOverlayHandler()
     private val firebaseFaceDetectorWrapper = FirebaseFaceDetectorWrapper()
 
     fun process(frame: Frame) {
-        updateOrientation(frame)
+        updateOverlayAttributes(frame)
         detectFacesIn(frame)
     }
 
-    private fun updateOrientation(frame: Frame) {
-        cameraOrientationHandler.updateOrientation(
+    private fun updateOverlayAttributes(frame: Frame) {
+        faceBoundsOverlayHandler.updateOverlayAttributes(
                 overlayWidth = frame.size.width,
                 overlayHeight = frame.size.height,
                 rotation = frame.rotation,
-                callback = { newWidth, newHeight, newOrientation ->
+                isCameraFacingBack = frame.isCameraFacingBack,
+                callback = { newWidth, newHeight, newOrientation, newFacing ->
                     faceBoundsOverlay.cameraPreviewWidth = newWidth
                     faceBoundsOverlay.cameraPreviewHeight = newHeight
                     faceBoundsOverlay.cameraOrientation = newOrientation
+                    faceBoundsOverlay.cameraFacing = newFacing
                 })
     }
 
