@@ -32,18 +32,20 @@ class FaceDetector(private val faceBoundsOverlay: FaceBoundsOverlay) {
     }
 
     private fun detectFacesIn(frame: Frame) {
-        firebaseFaceDetectorWrapper.process(
-                image = convertFrameToImage(frame),
-                onSuccess = {
-                    faceBoundsOverlay.updateFaces(convertToListOfFaceBounds(it))
-                },
-                onError = {
-                    Toast.makeText(faceBoundsOverlay.context, "Error processing images: $it", Toast.LENGTH_LONG).show()
-                })
+        frame.data?.let {
+            firebaseFaceDetectorWrapper.process(
+                    image = convertFrameToImage(frame),
+                    onSuccess = {
+                        faceBoundsOverlay.updateFaces(convertToListOfFaceBounds(it))
+                    },
+                    onError = {
+                        Toast.makeText(faceBoundsOverlay.context, "Error processing images: $it", Toast.LENGTH_LONG).show()
+                    })
+        }
     }
 
     private fun convertFrameToImage(frame: Frame) =
-            FirebaseVisionImage.fromByteArray(frame.data, extractFrameMetadata(frame))
+            FirebaseVisionImage.fromByteArray(frame.data!!, extractFrameMetadata(frame))
 
     private fun extractFrameMetadata(frame: Frame): FirebaseVisionImageMetadata =
             FirebaseVisionImageMetadata.Builder()
