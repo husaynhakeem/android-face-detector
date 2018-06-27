@@ -1,10 +1,15 @@
-# Android face detector
+# Face detector
+[![](https://jitpack.io/v/husaynhakeem/android-face-detector.svg)](https://jitpack.io/#husaynhakeem/android-face-detector)
+
 
 ![alt text](https://github.com/husaynhakeem/android-face-detector/blob/master/app/src/main/res/drawable/ic_launcher.png)
 
 Face detector is a face detection Android library which can be easily plugged into any camera API (given it provides a way to process its frames).
 
 Face detector is built on top of Firebase ML Kit's face detection API.
+
+
+## Related article
 
 
 ## Usage
@@ -42,7 +47,8 @@ cameraView.addFrameProcessor {
             data = it.data,
             rotation = it.rotation,
             size = Size(it.size.width, it.size.height),
-            format = it.format))
+            format = it.format,
+            isCameraFacingBack = cameraView.facing))
 }
 ```
 
@@ -61,11 +67,8 @@ allprojects {
 ```
 2. Add the dependency
 ```groovy
-implementation 'com.github.husaynhakeem:android-face-detector:v1.0-beta'
+implementation 'com.github.husaynhakeem:android-face-detector:v1.0'
 ```
-
-
-## Related article
 
 
 ## Demo
