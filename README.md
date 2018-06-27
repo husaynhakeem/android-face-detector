@@ -67,7 +67,7 @@ allprojects {
 ```
 2. Add the dependency
 ```groovy
-implementation 'com.github.husaynhakeem:android-face-detector:v1.0'
+implementation 'com.github.husaynhakeem:android-face-detector:v1.1'
 ```
 
 
