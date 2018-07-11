@@ -11,6 +11,8 @@ Face detector is built on top of Firebase ML Kit's face detection API.
 
 ## Related article
 
+I wrote [the following article](https://heartbeat.fritz.ai/building-a-real-time-face-detector-in-android-with-ml-kit-f930eb7b36d9) in order to explain why this project was built, how it's designed and how one can use it in a real-world Android application.
+
 
 ## Usage
 
