@@ -74,3 +74,5 @@ implementation 'com.github.husaynhakeem:android-face-detector:v1.1'
 
 
 ## Demo
+
+![alt text](https://github.com/husaynhakeem/android-face-detector/blob/master/app/art/demo.jpg)
