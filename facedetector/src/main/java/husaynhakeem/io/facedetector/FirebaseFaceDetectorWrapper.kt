@@ -12,11 +12,11 @@ internal class FirebaseFaceDetectorWrapper {
 
     private val faceDetectorOptions: FirebaseVisionFaceDetectorOptions by lazy {
         FirebaseVisionFaceDetectorOptions.Builder()
-                .setModeType(FirebaseVisionFaceDetectorOptions.ACCURATE_MODE)
-                .setLandmarkType(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
-                .setClassificationType(FirebaseVisionFaceDetectorOptions.NO_CLASSIFICATIONS)
+                .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
+                .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
+                .setClassificationMode(FirebaseVisionFaceDetectorOptions.NO_CLASSIFICATIONS)
                 .setMinFaceSize(MIN_FACE_SIZE)
-                .setTrackingEnabled(true)
+                .enableTracking()
                 .build()
     }
 
