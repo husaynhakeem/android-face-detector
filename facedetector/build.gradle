@@ -1,13 +1,11 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 30
     }
 
     buildTypes {
@@ -17,7 +15,7 @@ android {
                 removeUnusedResources false
                 obfuscate false
                 optimizeCode false
-                proguardFile 'proguard-rules.pro'
+                proguardFile "proguard-rules.pro"
             }
         }
     }
@@ -25,18 +23,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-
-    // ML Kit
-    implementation('com.google.firebase:firebase-core:16.0.4') {
-        exclude group: 'com.android.support'
-    }
-    implementation('com.google.firebase:firebase-ml-vision:18.0.1') {
-        exclude group: 'com.android.support'
-    }
-}
-
-repositories {
-    mavenCentral()
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "com.google.mlkit:face-detection:16.0.1"
+    implementation "com.google.android.gms:play-services-mlkit-face-detection:16.1.0"
 }

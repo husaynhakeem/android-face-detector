@@ -1,52 +1,67 @@
 package husaynhakeem.io.facedetectorapp
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.util.Size
+import androidx.appcompat.app.AppCompatActivity
 import com.otaliastudios.cameraview.Facing
 import husaynhakeem.io.facedetector.FaceDetector
-import husaynhakeem.io.facedetector.models.Frame
-import husaynhakeem.io.facedetector.models.Size
+import husaynhakeem.io.facedetector.Frame
+import husaynhakeem.io.facedetector.LensFacing
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val faceDetector: FaceDetector by lazy {
-        FaceDetector(facesBoundsOverlay)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupCamera()
-    }
 
-    private fun setupCamera() {
-        cameraView.addFrameProcessor {
-            faceDetector.process(Frame(
-                    data = it.data,
-                    rotation = it.rotation,
-                    size = Size(it.size.width, it.size.height),
-                    format = it.format,
-                    isCameraFacingBack = cameraView.facing == Facing.BACK))
-        }
-
-        revertCameraButton.setOnClickListener {
-            cameraView.toggleFacing()
-        }
+        val lensFacing =
+            savedInstanceState?.getSerializable(KEY_LENS_FACING) as Facing? ?: Facing.BACK
+        setupCamera(lensFacing)
     }
 
     override fun onResume() {
         super.onResume()
-        cameraView.start()
+        viewfinder.start()
     }
 
     override fun onPause() {
         super.onPause()
-        cameraView.stop()
+        viewfinder.stop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable(KEY_LENS_FACING, viewfinder.facing)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        cameraView.destroy()
+        viewfinder.destroy()
+    }
+
+    private fun setupCamera(lensFacing: Facing) {
+        val faceDetector = FaceDetector(faceBoundsOverlay)
+        viewfinder.facing = lensFacing
+        viewfinder.addFrameProcessor {
+            faceDetector.process(
+                Frame(
+                    data = it.data,
+                    rotation = it.rotation,
+                    size = Size(it.size.width, it.size.height),
+                    format = it.format,
+                    lensFacing = if (viewfinder.facing == Facing.BACK) LensFacing.BACK else LensFacing.FRONT
+                )
+            )
+        }
+
+        toggleCameraButton.setOnClickListener {
+            viewfinder.toggleFacing()
+        }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
+        private const val KEY_LENS_FACING = "key-lens-facing"
     }
 }
