@@ -92,6 +92,7 @@ class FaceDetector(private val faceBoundsOverlay: FaceBoundsOverlay) {
                 // Correct the detected faces so that they're correctly rendered on the UI, then
                 // pass them to [faceBoundsOverlay] to be drawn.
                 val faceBounds = faces.map { face -> face.toFaceBounds(this) }
+                onFaceDetectionResultListener?.onSuccess(faceBounds)
                 mainExecutor.execute { faceBoundsOverlay.updateFaces(faceBounds) }
             }
             .addOnFailureListener { exception ->

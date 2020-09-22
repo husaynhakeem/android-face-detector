@@ -1,15 +1,32 @@
 package husaynhakeem.io.facedetectorapp
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Size
 import androidx.appcompat.app.AppCompatActivity
 import com.otaliastudios.cameraview.Facing
+import husaynhakeem.io.facedetector.FaceBounds
 import husaynhakeem.io.facedetector.FaceDetector
 import husaynhakeem.io.facedetector.Frame
 import husaynhakeem.io.facedetector.LensFacing
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private val onFaceDetectionResultListener = object : FaceDetector.OnFaceDetectionResultListener{
+        override fun onFailure(exception: Exception) {
+            super.onFailure(exception)
+            exception.printStackTrace()
+            Log.e(TAG, "error ${exception.message}")
+        }
+
+        override fun onSuccess(faceBounds: List<FaceBounds>) {
+            super.onSuccess(faceBounds)
+            for (face in faceBounds) {
+                Log.d(TAG, "face ${face.id} ${face.box.width()} ${face.box.height()}")
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupCamera(lensFacing: Facing) {
         val faceDetector = FaceDetector(faceBoundsOverlay)
+        faceDetector.setonFaceDetectionFailureListener(onFaceDetectionResultListener)
         viewfinder.facing = lensFacing
         viewfinder.addFrameProcessor {
             faceDetector.process(
@@ -54,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
+
 
         toggleCameraButton.setOnClickListener {
             viewfinder.toggleFacing()

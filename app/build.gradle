@@ -21,6 +21,6 @@ dependencies {
     implementation "com.otaliastudios:cameraview:1.5.1"
 
     // Android face detector
-    implementation "com.github.husaynhakeem:android-face-detector:2.0" // Remote
-//    implementation(project(":facedetector")) // Local
+//    implementation "com.github.husaynhakeem:android-face-detector:2.0" // Remote
+    implementation(project(":facedetector")) // Local
 }
