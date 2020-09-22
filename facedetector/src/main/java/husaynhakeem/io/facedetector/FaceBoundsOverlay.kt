@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 
@@ -46,6 +47,7 @@ class FaceBoundsOverlay @JvmOverloads constructor(ctx: Context, attrs: Attribute
             canvas.drawId(faceBounds.id.toString(), faceBounds.box.center())
             canvas.drawBounds(faceBounds.box)
         }
+        Log.e("faces", "draw ${facesBounds.size}")
     }
 
     /** Draws an anchor (dot) at the center of a face. */
