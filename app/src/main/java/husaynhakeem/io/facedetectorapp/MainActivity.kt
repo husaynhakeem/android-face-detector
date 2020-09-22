@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onSuccess(faceBounds: List<FaceBounds>) {
             super.onSuccess(faceBounds)
+            Log.e(TAG,"total faces ${faceBounds.size}")
             for (face in faceBounds) {
                 Log.d(TAG, "face ${face.id} ${face.box.width()} ${face.box.height()}")
             }
@@ -32,8 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val lensFacing =
-            savedInstanceState?.getSerializable(KEY_LENS_FACING) as Facing? ?: Facing.BACK
+        val lensFacing = Facing.FRONT
         setupCamera(lensFacing)
     }
 
@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         val faceDetector = FaceDetector(faceBoundsOverlay)
         faceDetector.setonFaceDetectionFailureListener(onFaceDetectionResultListener)
         viewfinder.facing = lensFacing
+        viewfinder.rotation = 180f
         viewfinder.addFrameProcessor {
             faceDetector.process(
                 Frame(
@@ -68,16 +69,16 @@ class MainActivity : AppCompatActivity() {
                     rotation = it.rotation,
                     size = Size(it.size.width, it.size.height),
                     format = it.format,
-                    lensFacing = if (viewfinder.facing == Facing.BACK) LensFacing.BACK else LensFacing.FRONT
+                    lensFacing = LensFacing.FRONT
                 )
             )
         }
 
 
-        toggleCameraButton.setOnClickListener {
-            viewfinder.toggleFacing()
-        }
+
     }
+
+    //111.375 338.5481
 
     companion object {
         private const val TAG = "MainActivity"
