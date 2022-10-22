@@ -1,10 +1,13 @@
 package husaynhakeem.io.facedetectorapp
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Size
 import androidx.appcompat.app.AppCompatActivity
 import com.otaliastudios.cameraview.Facing
+import husaynhakeem.io.facedetector.FaceBounds
 import husaynhakeem.io.facedetector.FaceDetector
+import husaynhakeem.io.facedetector.FaceDetector.OnFaceDetectionResultListener
 import husaynhakeem.io.facedetector.Frame
 import husaynhakeem.io.facedetector.LensFacing
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,6 +45,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupCamera(lensFacing: Facing) {
         val faceDetector = FaceDetector(faceBoundsOverlay)
+        faceDetector.setonFaceDetectionFailureListener(object : OnFaceDetectionResultListener {
+            override fun onSuccess(faceBounds: List<FaceBounds>) {
+                Log.e("MainActivity","Show faceBounds $faceBounds")
+            }
+
+            override fun onFailure(exception: Exception) {
+
+            }
+
+        })
         viewfinder.facing = lensFacing
         viewfinder.addFrameProcessor {
             faceDetector.process(
