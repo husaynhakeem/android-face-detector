@@ -4,6 +4,9 @@ buildscript {
     ext{
         agp_version = "4.2.1"
         kotlin_version = "1.7.20"
+        // coroutine
+        coroutine_version = "1.6.3"
+        kotlin_coroutines_version = coroutine_version
     }
     repositories {
         google()
