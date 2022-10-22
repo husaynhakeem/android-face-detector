@@ -4,9 +4,9 @@ apply from: 'https://raw.githubusercontent.com/CKS-ROC/Useful_Gradle/master/vers
 def version = this.ext.default_version()
 this.project.version = version.versionName
 
-this.project.group = 'com.pgtalk.legacy'
+this.project.group = 'com.github.husaynhakeem'
 this.description = this.project.name
-this.archivesBaseName = description
+this.archivesBaseName = 'android-face-detector'
 
 ext {
 //    maven_properties_file = "properties_file path"
